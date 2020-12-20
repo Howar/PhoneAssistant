@@ -1,10 +1,12 @@
-package com.howar.phoneassistant
+package com.howar.phoneassistant.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import com.howar.phoneassistant.R
+import com.howar.phoneassistant.ui.adapter.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +21,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initDrawerLayout()
+        initTabLayout()
+    }
+
+    private fun initTabLayout() {
+        val adapter = ViewPagerAdapter(supportFragmentManager)
+        view_pager.adapter = adapter
+        tab_layout.setupWithViewPager(view_pager)
+    }
+
+    private fun initDrawerLayout() {
         headerView = navigation_view.getHeaderView(0)
         headerView?.setOnClickListener {
             Toast.makeText(this, "headerView clicked", Toast.LENGTH_SHORT).show()
