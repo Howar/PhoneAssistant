@@ -2,10 +2,9 @@ package com.howar.phoneassistant
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.appcompat.app.ActionBarDrawerToggle
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,25 +18,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        drawer_layout.addDrawerListener(object : DrawerLayout.DrawerListener {
-            override fun onDrawerStateChanged(newState: Int) {
-                Log.d(TAG, "onDrawerStateChanged")
-            }
-
-            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
-                Log.d(TAG, "onDrawerSlide")
-            }
-
-            override fun onDrawerClosed(drawerView: View) {
-                Log.d(TAG, "onDrawerClosed")
-            }
-
-            override fun onDrawerOpened(drawerView: View) {
-                Log.d(TAG, "onDrawerOpened")
-            }
-
-        })
 
         headerView = navigation_view.getHeaderView(0)
         headerView?.setOnClickListener {
@@ -56,5 +36,10 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+        tool_bar.inflateMenu(R.menu.toolbar_menu)
+        val drawerToggle = ActionBarDrawerToggle(this, drawer_layout, tool_bar, R.string.open, R.string.close)
+        drawerToggle.syncState()
+        drawer_layout.addDrawerListener(drawerToggle)
     }
 }
